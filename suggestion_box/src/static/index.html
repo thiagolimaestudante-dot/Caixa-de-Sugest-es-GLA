@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caixa de Sugestões - GLA ADVOGADOS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-lightbulb"></i>
+                    Caixa de Sugestões
+                </h1>
+                <p class="subtitle">GLA ADVOGADOS</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="enviar">
+                <i class="fas fa-plus-circle"></i>
+                Enviar Sugestão
+            </button>
+            <button class="nav-tab" data-tab="visualizar">
+                <i class="fas fa-list"></i>
+                Visualizar Sugestões
+            </button>
+            <button class="nav-tab" data-tab="ranking">
+                <i class="fas fa-trophy"></i>
+                Ranking
+            </button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="main-content">
+            <!-- Enviar Sugestão Tab -->
+            <div class="tab-content active" id="enviar">
+                <div class="card">
+                    <h2 class="card-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Nova Sugestão
+                    </h2>
+                    <form id="suggestion-form" class="form">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" id="anonimo" class="checkbox">
+                                <span class="checkbox-label">Enviar anonimamente</span>
+                            </label>
+                        </div>
+
+                        <div id="identificacao-fields" class="identificacao-section">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nome" class="form-label">Nome do Colaborador</label>
+                                    <input type="text" id="nome" class="form-input" placeholder="Seu nome completo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="setor" class="form-label">Setor</label>
+                                    <input type="text" id="setor" class="form-input" placeholder="Seu setor de trabalho">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="titulo" class="form-label">Título da Sugestão *</label>
+                            <input type="text" id="titulo" class="form-input" placeholder="Título claro e objetivo" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descricao" class="form-label">Descrição *</label>
+                            <textarea id="descricao" class="form-textarea" placeholder="Descreva sua sugestão de melhoria..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="como-fazer" class="form-label">Como Implementar</label>
+                            <textarea id="como-fazer" class="form-textarea" placeholder="Como você sugere que essa melhoria seja implementada?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Sugestão
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Visualizar Sugestões Tab -->
+            <div class="tab-content" id="visualizar">
+                <div class="suggestions-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-list"></i>
+                        Todas as Sugestões
+                    </h2>
+                    <div class="suggestions-count">
+                        <span id="suggestions-total">0</span> sugestões
+                    </div>
+                </div>
+                <div id="suggestions-list" class="suggestions-list">
+                    <!-- Sugestões serão carregadas aqui -->
+                </div>
+            </div>
+
+            <!-- Ranking Tab -->
+            <div class="tab-content" id="ranking">
+                <div class="ranking-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-trophy"></i>
+                        Ranking das Sugestões
+                    </h2>
+                    <p class="ranking-subtitle">Top 10 sugestões mais votadas</p>
+                </div>
+                <div id="ranking-list" class="ranking-list">
+                    <!-- Ranking será carregado aqui -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para comentários -->
+    <div id="comments-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Comentários</h3>
+                <button class="modal-close" onclick="closeCommentsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="comments-list" class="comments-list">
+                    <!-- Comentários serão carregados aqui -->
+                </div>
+                <form id="comment-form" class="comment-form">
+                    <div class="form-group">
+                        <label for="comment-name" class="form-label">Seu Nome *</label>
+                        <input type="text" id="comment-name" class="form-input" placeholder="Digite seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment-text" class="form-label">Comentário *</label>
+                        <textarea id="comment-text" class="form-textarea" placeholder="Digite seu comentário..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-comment"></i>
+                        Adicionar Comentário
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
